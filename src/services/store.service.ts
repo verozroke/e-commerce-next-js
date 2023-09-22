@@ -1,4 +1,4 @@
-import { createStoreFormValidator } from '@/components/ui/modals/store-modal'
+import { createStoreFormValidator } from '@/components/modals/store-modal'
 import axios from 'axios'
 
 class StoreService {

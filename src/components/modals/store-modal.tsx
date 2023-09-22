@@ -5,9 +5,9 @@ import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form';
 import { log } from 'console';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../form';
-import { Input } from '../input';
-import { Button } from '../button';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
 import toast from 'react-hot-toast';
 import { useMutation } from '@tanstack/react-query';
 import storeService from '@/services/store.service';
@@ -39,9 +39,12 @@ export const StoreModal = () => {
 
   const { isLoading, mutate: createStore } = useMutation({
     mutationFn: storeService.createStore,
-    onSuccess: () => {
+    onSuccess: (response) => {
       toast.success('Your store was created successfully')
       form.reset()
+
+      window.location.assign(`/${response.data.id}`)
+
     },
     onError: (error) => {
       toast.error(`${error}`)

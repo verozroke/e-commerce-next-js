@@ -4,7 +4,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { ModalProvider } from '@/providers/modal-provider'
 import { ToasterProvider } from '@/providers/toast-provider'
-import QueryProvider from '@/components/ui/query-provider'
+import QueryProvider from '@/components/query-provider'
 import { ClerkProvider } from '@clerk/nextjs'
 
 
