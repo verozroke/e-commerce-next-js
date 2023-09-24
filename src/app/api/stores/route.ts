@@ -33,7 +33,7 @@ export async function POST(
     return NextResponse.json(store)
 
   } catch (err) {
-    console.log('[STORES_[POST]', err);
+    console.log('[STORES_POST]', err);
 
     return new NextResponse("Internal error", { status: 500 })
 

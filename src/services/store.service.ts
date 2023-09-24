@@ -1,3 +1,4 @@
+import { SettingsFormValidator } from '@/app/(dashboard)/[storeId]/(routes)/settings/components/settings-form';
 import { createStoreFormValidator } from '@/components/modals/store-modal'
 import axios from 'axios'
 
@@ -9,9 +10,15 @@ class StoreService {
   }
 
   async createStore(body: createStoreFormValidator) {
-    console.log(this);
-
     return axios.post(`${this.baseUrl}/stores`, body)
+  }
+
+  async updateStore(body: SettingsFormValidator, storeId: string) {
+    return axios.patch(`${this.baseUrl}/stores/${storeId}`, body)
+  }
+
+  async deleteStore(storeId: string) {
+    return axios.delete(`${this.baseUrl}/stores/${storeId}`)
   }
 }
 

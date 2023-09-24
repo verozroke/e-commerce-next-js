@@ -38,7 +38,7 @@ export const StoreModal = () => {
   }
 
   const { isLoading, mutate: createStore } = useMutation({
-    mutationFn: storeService.createStore,
+    mutationFn: (body: createStoreFormValidator) => storeService.createStore(body),
     onSuccess: (response) => {
       toast.success('Your store was created successfully')
       form.reset()
