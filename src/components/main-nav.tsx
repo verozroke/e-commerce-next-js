@@ -12,6 +12,7 @@ export function MainNav({
   const pathname = usePathname()
   const params = useParams()
 
+  // FIXME: fix error with navbar
   const routes = [
     {
       href: `${params.storeId}`,
@@ -22,6 +23,11 @@ export function MainNav({
       href: `${params.storeId}/settings`,
       label: 'Settings',
       active: pathname === `/${params.storeId}/settings`
+    },
+    {
+      href: `${params.storeId}/billboards`,
+      label: 'Billboards',
+      active: pathname === `/${params.storeId}/billboards`
     }
   ]
 

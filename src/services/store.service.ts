@@ -1,5 +1,5 @@
-import { SettingsFormValidator } from '@/app/(dashboard)/[storeId]/(routes)/settings/components/settings-form';
-import { createStoreFormValidator } from '@/components/modals/store-modal'
+import type { SettingsFormValidator } from '@/app/(dashboard)/[storeId]/(routes)/settings/components/settings-form';
+import type { createStoreFormValidator } from '@/components/modals/store-modal'
 import axios from 'axios'
 
 class StoreService {
