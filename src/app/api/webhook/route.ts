@@ -3,21 +3,22 @@ import Stripe from 'stripe'
 import { stripe } from '@/lib/stripe'
 import { NextResponse } from 'next/server'
 import db from '@/lib/prisma.db'
+import { NextApiRequest } from 'next'
 
-export async function POST(req: Request) {
-  const body = await req.text()
+export async function POST(req: NextApiRequest) {
 
-  const signature = headers().get('Stripe-Signature') as string
+  const signature =  req.headers['stripe-signature'] as string;
   let event: Stripe.Event
 
   try {
+    const body = await buffer(req);
     event = stripe.webhooks.constructEvent(
       body,
       signature,
       process.env.STRIPE_WEBHOOK_SECRET!
     )
   } catch (error: any) {
-    return new NextResponse('Webhook Error: ' + error.message + ' ' + signature + ' ' + body, { status: 400 })
+    return new NextResponse('Webhook Error: ' + error.message, { status: 400 })
   }
 
 
@@ -67,3 +68,26 @@ export async function POST(req: Request) {
   return new NextResponse(null, { status: 200 })
 
 }
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
+
+const buffer = (req: NextApiRequest) => {
+  return new Promise<Buffer>((resolve, reject) => {
+    const chunks: Buffer[] = [];
+
+    req.on('data', (chunk: Buffer) => {
+      chunks.push(chunk);
+    });
+
+    req.on('end', () => {
+      resolve(Buffer.concat(chunks));
+    });
+
+    req.on('error', reject);
+  });
+};
