@@ -100,19 +100,17 @@ export async function GET(
   try {
 
     const { searchParams } = new URL(req.url)
-    const { userId } = auth()
+
+    console.log(searchParams)
 
     const categoryId = searchParams.get('categoryId') || undefined
-    const colorId = searchParams.get('categoryId') || undefined
-    const sizeId = searchParams.get('categoryId') || undefined
-    const isFeatured = searchParams.get('categoryId') || undefined
+    const colorId = searchParams.get('colorId') || undefined
+    const sizeId = searchParams.get('sizeId') || undefined
+    const isFeatured = searchParams.get('isFeatured') || undefined
 
     const { storeId } = params
 
 
-    if (!userId) {
-      return new NextResponse('Unauthorized', { status: 401 })
-    }
 
     const products = await db.product.findMany({
       where: {

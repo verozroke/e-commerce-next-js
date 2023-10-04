@@ -64,14 +64,9 @@ export async function GET(
 ) {
   try {
 
-    const { userId } = auth()
 
     const { storeId } = params
 
-
-    if (!userId) {
-      return new NextResponse('Unauthorized', { status: 401 })
-    }
 
     const sizes = await db.size.findMany({
       where: {

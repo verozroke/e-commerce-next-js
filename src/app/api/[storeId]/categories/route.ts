@@ -64,20 +64,17 @@ export async function GET(
 ) {
   try {
 
-    const { userId } = auth()
 
     const { storeId } = params
 
-
-    if (!userId) {
-      return new NextResponse('Unauthorized', { status: 401 })
-    }
 
     const categories = await db.category.findMany({
       where: {
         storeId,
       }
     })
+
+    console.log(categories)
 
 
     return NextResponse.json(categories)

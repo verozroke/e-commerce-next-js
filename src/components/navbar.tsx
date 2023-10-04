@@ -4,6 +4,7 @@ import { MainNav } from './main-nav'
 import StoreSwitcher from './store-switcher'
 import { redirect } from 'next/navigation'
 import db from '@/lib/prisma.db'
+import { ModeToggle } from './mode-toggle'
 
 interface navbarProps {
 
@@ -31,6 +32,7 @@ const navbar: FC<navbarProps> = async ({ }) => {
       <StoreSwitcher items={stores} />
       <MainNav className='mx-6' />
       <div className=' ml-auto flex items-center space-x-4'>
+        <ModeToggle />
         <UserButton afterSignOutUrl='/' />
       </div>
     </div>

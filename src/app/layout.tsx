@@ -6,6 +6,7 @@ import { ModalProvider } from '@/providers/modal-provider'
 import { ToasterProvider } from '@/providers/toast-provider'
 import QueryProvider from '@/components/query-provider'
 import { ClerkProvider } from '@clerk/nextjs'
+import { ThemeProvider } from '@/providers/theme-provider'
 
 
 
@@ -34,8 +35,14 @@ export default function RootLayout({
           </head>
           <body>
             <ToasterProvider />
-            <ModalProvider />
-            {children}
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+            >
+              <ModalProvider />
+              {children}
+            </ThemeProvider>
           </body>
         </html>
       </ClerkProvider>

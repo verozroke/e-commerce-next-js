@@ -7,11 +7,11 @@ import { NextResponse } from "next/server";
 export async function GET(req: Request, { params }: { params: { storeId: string, billboardId: string } }) {
   try {
 
-    const { userId } = auth()
+    // const { userId } = auth()
 
-    if (!userId) {
-      return new NextResponse('Unauthorized', { status: 401 })
-    }
+    // if (!userId) {
+    //   return new NextResponse('Unauthorized', { status: 401 })
+    // }
 
     if (!params.storeId) {
       return new NextResponse('storeId is required', { status: 400 })
@@ -20,7 +20,7 @@ export async function GET(req: Request, { params }: { params: { storeId: string,
     const isExist = db.store.findUnique({
       where: {
         id: params.storeId,
-        userId,
+        // userId
       }
     })
 

@@ -64,14 +64,11 @@ export async function GET(
 ) {
   try {
 
-    const { userId } = auth()
+
 
     const { storeId } = params
 
 
-    if (!userId) {
-      return new NextResponse('Unauthorized', { status: 401 })
-    }
 
     const colors = await db.color.findMany({
       where: {
