@@ -3,7 +3,7 @@ import type { createStoreFormValidator } from '@/components/modals/store-modal'
 import axios from 'axios'
 
 class StoreService {
-  private baseUrl = 'http://localhost:3000/api'
+  private baseUrl = 'https://e-commerce-next-js-admin-six.vercel.app/api'
 
   constructor() {
     this.createStore = this.createStore.bind(this)

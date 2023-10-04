@@ -2,7 +2,7 @@ import { ProductFormValidator } from '@/app/(dashboard)/[storeId]/(routes)/produ
 import axios from 'axios'
 
 class ProductService {
-  private baseUrl = 'http://localhost:3000/api'
+  private baseUrl = 'https://e-commerce-next-js-admin-six.vercel.app/api'
 
   constructor() {
   }

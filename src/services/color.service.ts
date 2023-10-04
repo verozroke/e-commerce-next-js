@@ -3,7 +3,7 @@ import { ColorFormValidator } from '@/app/(dashboard)/[storeId]/(routes)/colors/
 import axios from 'axios'
 
 class ColorService {
-  private baseUrl = 'http://localhost:3000/api'
+  private baseUrl = 'https://e-commerce-next-js-admin-six.vercel.app/api'
 
   constructor() {
   }

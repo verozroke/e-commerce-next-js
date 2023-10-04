@@ -2,7 +2,7 @@ import { CategoryFormValidator } from '@/app/(dashboard)/[storeId]/(routes)/cate
 import axios from 'axios'
 
 class CategoryService {
-  private baseUrl = 'http://localhost:3000/api'
+  private baseUrl = 'https://e-commerce-next-js-admin-six.vercel.app/api'
 
   constructor() {
   }
