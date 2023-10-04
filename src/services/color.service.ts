@@ -1,5 +1,5 @@
 
-import { ColorFormValidator } from '@/app/(dashboard)/[storeId]/(routes)/colors/[sizeId]/components/color-form'
+import { ColorFormValidator } from '@/app/(dashboard)/[storeId]/(routes)/colors/[colorId]/components/color-form'
 import axios from 'axios'
 
 class ColorService {

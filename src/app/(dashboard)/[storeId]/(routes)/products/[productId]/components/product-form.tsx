@@ -68,6 +68,7 @@ const ProductForm: FC<ProductFormProps> = ({ initialData, categories, colors, si
 
   const form = useForm<ProductFormValidator>({
     resolver: zodResolver(formSchema),
+    //@ts-ignore
     defaultValues: initialData ? {
       ...initialData,
       price: parseFloat(String(initialData?.price))
