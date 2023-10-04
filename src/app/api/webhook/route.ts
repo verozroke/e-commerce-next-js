@@ -7,7 +7,7 @@ import { NextApiRequest } from 'next'
 
 export async function POST(req: NextApiRequest) {
 
-  const signature =  req.headers['stripe-signature'] as string;
+  const signature = req.headers['stripe-signature'] as string;
   let event: Stripe.Event
 
   try {
@@ -69,11 +69,6 @@ export async function POST(req: NextApiRequest) {
 
 }
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
 
 
 const buffer = (req: NextApiRequest) => {
