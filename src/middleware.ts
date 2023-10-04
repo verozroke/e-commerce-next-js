@@ -12,7 +12,7 @@ export const config = {
   matcher: ['/((?!.+\\.[  \\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
 };
 
-export async function middleware(request: NextRequest) {
+export function middleware(request: NextRequest) {
   const response = NextResponse.next()
 
   if (request.nextUrl.pathname.startsWith("/api")) {
