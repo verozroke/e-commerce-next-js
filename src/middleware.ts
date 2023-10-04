@@ -16,7 +16,7 @@ export function middleware(request: NextRequest) {
   const response = NextResponse.next()
 
   if (request.nextUrl.pathname.startsWith("/api")) {
-    response.headers.append("Access-Control-Allow-Origin", "*")
+    response.headers.append("Access-Control-Allow-Origin", "e-commerce-next-js-admin-six.vercel.app")
   }
   //...
   return response
