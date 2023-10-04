@@ -1,29 +1,28 @@
-import { headers } from 'next/headers'
-import Stripe from 'stripe'
-import { stripe } from '@/lib/stripe'
-import { NextResponse } from 'next/server'
-import db from '@/lib/prisma.db'
-import { NextApiRequest } from 'next'
+import Stripe from "stripe"
+import { headers } from "next/headers"
+import { NextResponse } from "next/server"
 
-export async function POST(req: NextApiRequest) {
+import { stripe } from "@/lib/stripe"
+import db from "@/lib/prisma.db"
 
-  const signature = req.headers['stripe-signature'] as string;
+export async function POST(req: Request) {
+  const body = await req.text()
+  const signature = headers().get("Stripe-Signature") as string
+
   let event: Stripe.Event
 
   try {
-    const body = await buffer(req);
     event = stripe.webhooks.constructEvent(
       body,
       signature,
       process.env.STRIPE_WEBHOOK_SECRET!
     )
   } catch (error: any) {
-    return new NextResponse('Webhook Error: ' + error.message, { status: 400 })
+    return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 })
   }
 
-
-  const session = event.data.object as Stripe.Checkout.Session
-  const address = session.customer_details?.address
+  const session = event.data.object as Stripe.Checkout.Session;
+  const address = session?.customer_details?.address;
 
   const addressComponents = [
     address?.line1,
@@ -36,53 +35,35 @@ export async function POST(req: NextApiRequest) {
 
   const addressString = addressComponents.filter((c) => c !== null).join(', ');
 
-  if (event.type === 'checkout.session.completed') {
+
+  if (event.type === "checkout.session.completed") {
     const order = await db.order.update({
       where: {
-        id: session.metadata?.orderId
+        id: session?.metadata?.orderId,
       },
       data: {
         isPaid: true,
         address: addressString,
-        phone: session.customer_details?.phone || ''
+        phone: session?.customer_details?.phone || '',
       },
       include: {
-        orderItems: true
+        orderItems: true,
       }
-    })
+    });
 
-    const productIds = order.orderItems.map(orderItem => orderItem.productId)
+    const productIds = order.orderItems.map((orderItem: any) => orderItem.productId);
 
     await db.product.updateMany({
       where: {
         id: {
-          in: [...productIds]
-        }
+          in: [...productIds],
+        },
       },
       data: {
         isArchived: true
       }
-    })
-
+    });
   }
-  return new NextResponse(null, { status: 200 })
 
-}
-
-
-
-const buffer = (req: NextApiRequest) => {
-  return new Promise<Buffer>((resolve, reject) => {
-    const chunks: Buffer[] = [];
-
-    req.on('data', (chunk: Buffer) => {
-      chunks.push(chunk);
-    });
-
-    req.on('end', () => {
-      resolve(Buffer.concat(chunks));
-    });
-
-    req.on('error', reject);
-  });
+  return new NextResponse(null, { status: 200 });
 };
